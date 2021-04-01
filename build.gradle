@@ -1,0 +1,86 @@
+plugins {
+	id 'java'
+	id 'maven-publish'
+}
+
+apply plugin: 'eclipse'
+apply from: "asf.mvn.publish.gradle"
+
+version = "1.0.0.A1"
+group = "org.asf.connective.commoncgi"
+
+ext.authorname = "AerialWorks Software Foundation"
+
+configurePublish {
+    pretty_name "ConnectiveHTTP CommonCGI"
+	description "Simple framework for using CGI in connective modules."
+	
+	page "https://aerialworks.ddns.net/maven"
+	address "https://aerialworks.ddns.net/maven"
+
+	author {
+		name "$authorname"
+		id "ASF"
+	}
+
+	license {
+		name "GNU Lesser General Public License v3.0"
+		url "https://www.gnu.org/licenses/lgpl-3.0.txt"
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { name = "AerialWorks"; url = "https://aerialworks.ddns.net/maven" }
+	flatDir {
+		dirs 'libraries'
+	}
+}
+
+jar {
+	manifest {
+		attributes([
+			"Specification-Title": project.name,
+			"Specification-Vendor": "${authorname}",
+			"Specification-Version": project.version,
+			"Implementation-Title": project.name,
+			"Implementation-Version": project.version,
+			"Implementation-Vendor" :"${authorname}",
+			"Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+		])
+	}
+	includeEmptyDirs = false
+}
+
+
+task javaDocs(type: Javadoc) {
+	classpath = sourceSets.main.runtimeClasspath
+	source = sourceSets.main.allJava
+}
+
+task javadocJar(type: Jar, dependsOn: 'javaDocs') {
+	from javadoc
+	classifier = 'javadoc'
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+artifacts {
+	archives sourcesJar
+	archives javadocJar
+}
+
+dependencies {
+	implementation name: "RatsMemory"
+	implementation name: "ConnectiveHTTP"
+
+	implementation group: 'org.asf.cyan', name: 'CyanComponents', version: '1.0.0.A4'
+	implementation group: 'org.asf.cyan', name: 'CCFG', version: '1.0.0.A8'
+
+	implementation group: 'org.asf.aos.util.service', name: 'aosutil-service-SLIB-UTIL', version: '0.0.0.12'
+}
+
+initializeASFMVNPublish();
