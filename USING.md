@@ -124,7 +124,7 @@ After you have refreshed your project in eclipse, you can use the CgiScript clas
 The following examples will help get you started.
 
 ## Examples of CGI scripts
-Take a look at [the example scripts](CGI_EXAMPLE_SCRIPTS.md) we have prepared for this.
+Take a look at [the example scripts](EXAMPLE_CGI_SCRIPTS.md) we have prepared for this.
 
 # Using the scripts
 Now we will go into the code needed to run it.
