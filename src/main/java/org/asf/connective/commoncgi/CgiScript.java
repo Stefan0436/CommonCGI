@@ -1,5 +1,6 @@
 package org.asf.connective.commoncgi;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -10,6 +11,7 @@ import java.util.HashMap;
 import org.asf.rats.ConnectiveHTTPServer;
 import org.asf.rats.HttpRequest;
 import org.asf.rats.HttpResponse;
+import org.asf.rats.http.ProviderContext;
 
 /**
  * 
@@ -294,6 +296,29 @@ public class CgiScript {
 	}
 
 	/**
+	 * Sets the variables for the basic file module.
+	 * 
+	 * @param context Server context to use.
+	 * @param path    Script path relative to the context root.
+	 * @throws IOException If assigning fails.
+	 */
+	public CgiScript setFileVariable(ProviderContext context, String path) throws IOException {
+
+		//
+		// Assign the document root
+		String root = new File(context.getSourceDirectory()).getCanonicalPath();
+		setVariable("DOCUMENT_ROOT", root);
+
+		//
+		// Assign script variables
+		File file = new File(root, path);
+		setVariable("SCRIPT_NAME", path);
+		setVariable("SCRIPT_FILENAME", file.getCanonicalPath());
+
+		return this;
+	}
+
+	/**
 	 * Sets the server variables.
 	 * 
 	 * @param serverName Server name.
@@ -325,6 +350,7 @@ public class CgiScript {
 		setVariable("REQUEST_METHOD", request.method);
 		setVariable("SCRIPT_NAME", request.path);
 		setVariable("QUERY_STRING", (request.query == null ? "" : request.query));
+		setVariable("PATH_INFO", request.subPath);
 
 		//
 		// Dynamic variables
@@ -358,11 +384,6 @@ public class CgiScript {
 			String header = request.headers.get("Authorization");
 			setVariable("AUTH_TYPE", header.substring(0, header.indexOf(" ")));
 		}
-
-		//
-		// NYI: sub-path
-//		if (request.subPath != null)
-//			setVariable("PATH_INFO", request.subPath);
 
 		return this;
 	}

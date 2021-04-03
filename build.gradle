@@ -6,7 +6,7 @@ plugins {
 apply plugin: 'eclipse'
 apply from: "asf.mvn.publish.gradle"
 
-version = "1.0.0.A1"
+version = "1.0.0.A2"
 group = "org.asf.connective.commoncgi"
 
 ext.authorname = "AerialWorks Software Foundation"
@@ -76,6 +76,7 @@ artifacts {
 dependencies {
 	implementation name: "RatsMemory"
 	implementation name: "ConnectiveHTTP"
+	implementation name: "HttpBasicFileModule"
 
 	implementation group: 'org.asf.cyan', name: 'CyanComponents', version: '1.0.0.A4'
 	implementation group: 'org.asf.cyan', name: 'CCFG', version: '1.0.0.A8'
