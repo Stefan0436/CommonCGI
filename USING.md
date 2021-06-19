@@ -26,7 +26,7 @@ Now that you have our maven repository, you can add CommonCGI as following:
 // ...
 dependencies {
 	// ...
-	implementation group: 'org.asf.connective.commoncgi', name: 'CommonCGI', version: '1.0.0.A2'
+	implementation group: 'org.asf.connective.commoncgi', name: 'CommonCGI', version: '1.0.0.A3'
 	// ...
 }
 ```
@@ -108,7 +108,7 @@ public class <Module>CGIDependencyProvider implements IModuleMavenDependencyProv
 
 	@Override
 	public String version() {
-		return "1.0.0.A2"; // Use the latest version
+		return "1.0.0.A3"; // Use the latest version
 	}
 
 }
