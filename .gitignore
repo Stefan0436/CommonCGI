@@ -7,3 +7,7 @@ bin/
 .settings/
 .classpath
 .project
+*.launch
+
+# Run files
+server/

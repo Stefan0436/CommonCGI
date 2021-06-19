@@ -6,7 +6,7 @@ Head over to [USING.md](USING.md)
 
 <br />
 
-# Building the CommonCGI Module
+# Building the ${pretty_name}
 This project is build using gradle, but it supplies the wrapper so you dont need to install it.<br />
 What you do need is Java JDK, if you have it installed, proceed with the following commands depending
 on your operating system.
@@ -26,53 +26,33 @@ Run the following commands:
 
 ```batch
 gradlew.bat createEclipseLaunches build
-cd build\libs
+cd build\\libs
 ```
 
 <br />
 
-# Installing the CommonCGI Module
+# Installing the ${pretty_name}
 The installation depends on your server software.<br />
 Though it is not too different for each server type.
 
 ## Installing for the standalone server
-You can install the module by placing the jar in the `modules` directory of the server.
+${install.standalone.desc}
 
-## Enabling the modifications on the standalone server
-To enable the modifications, one will need to add the following to their server configuration:
-
-```
-# File: server.ccfg
-# ...
-context> {
-  # ...
-
-    # We use root, but you can add the instructions to any of your contextfiles
-    root> '
-    # ...
-    virtualfile "class:org.asf.connective.commoncgi.providers.CgiVirtualFile"
-    # ...
-    '
-
-  # ...
-}
-# ...
-
-```
+$moduleConfigAdditionsStandalone
 
 ## Installing for ASF RaTs! (Remote Advanced Testing Suite)
-First, drop the module in the `main` folder of your RaTs! installation.<br />
-After which, add the following line to the `classes` key of the `components.ccfg` file:
+${install.rats.desc}<br />
+After which, add the following line to the `${install.rats.config.key}` key of the `components.ccfg` file:
 
 ```
 # File: components.ccfg
 # ...
-classes> {
+${install.rats.config.key}> {
 
     # ...
 
-    org.asf.connective.commoncgi.CgiModule> 'CommonCGI-1.0.0.A3.jar'
-
+    ${install.rats.config.entry}> '${name}-${version}.jar'
+${otherclasses.rats}
     # ...
 
 }
@@ -80,13 +60,13 @@ classes> {
 ```
 
 # Version Notice:
-This module was build targeting ASF Connective version 1.0.0.A3,
+This module was build targeting ASF Connective version ${connectiveversion},
 it may not work on newer or older versions.
 
 # Copyright Notice:
-This project is licensed under the LGPL 3.0 license.<br />
-Copyright(c) 2021 AerialWorks Software Foundation.<br />
-Free software, read LGPL 3.0 license document for more information.<br />
+This project is licensed under the ${license} license.<br />
+Copyright(c) ${buildyear} ${authorname}.<br />
+${copyrightsuffix}.<br />
 <br />
 This project uses the ConnectiveHTTP libraries.<br />
 Copyright(c) 2021 AerialWorks Software Foundation.

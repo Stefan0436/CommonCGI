@@ -2,7 +2,7 @@
 setlocal EnableDelayedExpansion
 
 SET libs=
-for %%i in (*.jar) do SET libs=!libs!:%%i
+for %%i in (*.jar) do SET libs=!libs!;%%i
 for /r "./libs" %%i in (*.jar) do SET libs=!libs!;%%i
 SET libs=%libs:~1%
 
